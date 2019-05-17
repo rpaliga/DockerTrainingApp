@@ -1,0 +1,29 @@
+version: '2'
+
+volumes:
+  mysql_db:
+
+services:
+  mariadb:
+    image: mariadb
+    volumes:
+      - mysql_db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+  apiserver:
+    build:
+      context: ./api_server
+    image: todoapp-client
+    depends_on:
+      - mariadb
+    ports:
+      - "5000:5000"
+  clientapp:
+    build:
+      context: ./react_app
+    image: todoapp-api
+    depends_on:
+      - mariadb
+      - apiserver
+    ports:
+      - "4000:3000"
