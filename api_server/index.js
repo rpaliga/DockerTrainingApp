@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: 'mariadb',
   user: 'root',
   password: 'password',
   database: 'todoapp'
